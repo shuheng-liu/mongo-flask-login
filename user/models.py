@@ -17,7 +17,7 @@ class User:
         return jsonify(user), 200
 
     def signup(self):
-        print("getting request.form", request.form)
+        print("getting sign-up request", request.form)
 
         # create the user object
         user = {
@@ -43,3 +43,19 @@ class User:
     def logout(self):
         session.clear()
         return redirect('/')
+
+    def login(self):
+        print("getting sign-up request", request.form)
+
+        # create the user object
+        user = {
+            'email': request.form.get('email'),
+            'password': request.form.get('password'),
+        }
+
+        # look up user in database & verify credentials
+        db_user = db.users.find_one({"email": user["email"]})
+        if db_user and pbkdf2_sha256.verify(user["password"], db_user["password"]):
+            return self.start_session(db_user)
+
+        return jsonify({"error": "Invalid Credentials"}), 400
