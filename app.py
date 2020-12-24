@@ -1,10 +1,15 @@
 import os
 import flask
+import pymongo
 from flask import Flask
 from flask import send_from_directory
 from flask import render_template
 
 app = Flask(__name__)
+
+# Database
+client = pymongo.MongoClient('localhost', 27017)
+db = client.user_login_system
 
 # Routes
 from user import routes
