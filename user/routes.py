@@ -7,6 +7,7 @@ from user.models import User
 def signup():
     return User().signup()
 
+
 @app.route('/user/logout')
 def logout():
     return User().logout()
