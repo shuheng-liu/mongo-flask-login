@@ -6,6 +6,7 @@ from flask import send_from_directory
 from flask import render_template
 
 app = Flask(__name__)
+app.secret_key = b'\xdf\xa6\x91g\xd5\x0f9t\xc6\xf0\x16\xdd\xba\x0b\x1d\x1e'
 
 # Database
 client = pymongo.MongoClient('localhost', 27017)

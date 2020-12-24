@@ -2,6 +2,15 @@
 
 {% block content %}
 
-    <h1>Dashboard</h1>
+    <div class="card-wrapper">
+        <div class="card">
+            <h1>Dashboard</h1>
+
+            {{ session['logged_in'] }} <br>
+            {{ session['user'] }} <br>
+            <a class="btn--secondary" href="/user/logout">Log Out</a>
+
+        </div>
+    </div>
 
 {% endblock %}

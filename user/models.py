@@ -1,12 +1,19 @@
 from flask import Flask
 from flask import jsonify
 from flask import request
+from flask import session
+from flask import redirect
 from passlib.hash import pbkdf2_sha256
 from app import db
 import uuid
 
 
 class User:
+    def start_session(self, user):
+        session['logged_in'] = True
+        session['user'] = user
+        return jsonify(user), 200
+
     def signup(self):
         print("getting request.form", request.form)
 
@@ -27,6 +34,10 @@ class User:
 
         # insert into database
         if db.users.insert_one(user):
-            return jsonify(user), 200
+            return self.start_session(user)
 
-        return "Unknown Error", 400
+        return jsonify({"error": "unknown error"}), 400
+
+    def logout(self):
+        session.clear()
+        return redirect('/')

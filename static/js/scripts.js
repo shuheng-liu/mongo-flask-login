@@ -12,11 +12,9 @@ $("form[name=signup_form]").submit(function(e) {
         data: data,
         dataType: "json",
         success: function (response) {
-            console.log('success!');
-            console.log(response);
+            window.location.href = '/dashboard/';
         },
         error: function (response) {
-            console.log(response);
             $error.text(response.responseJSON.error).removeClass('error--hidden');
         }
     });
